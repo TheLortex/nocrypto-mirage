@@ -1,0 +1,17 @@
+opam-version: "2.0"
+authors:      ["Lucas Pluvinage"]
+maintainer:   "Lucas Pluvinage"
+license:      "ISC"
+synopsis:     "Mirage freestanding implementation of nocrypto"
+
+build: [ ["dune" "subst"] {pinned}
+         ["dune" "build" "-p" name "-j" jobs ]
+         ["dune" "runtest"] {with-test} ]
+
+depends: [
+  "ocaml" {>= "4.03.0"}
+  "dune" {build & >= "1.9"}
+  "nocrypto"
+  "ocaml-freestanding"
+]
+

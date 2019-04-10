@@ -1,0 +1,57 @@
+(library
+  (name nocrypto_freestanding)
+  (public_name nocrypto-mirage-freestanding)
+  (implements nocrypto)
+  (variant frestanding)
+  (libraries ocaml-freestanding)
+  (private_modules no_base64 no_ccm no_cipher_block no_cipher_stream no_dh
+                   no_dsa no_fortuna no_hash no_hmac_drgb no_native no_numeric
+                   no_rng no_rsa no_uncommon)
+  (c_names misc
+           md5 sha1 sha256 sha512 stubs
+           aes_generic aes_aesni ghash_generic ghash_pclmul
+           des_generic)
+  (c_flags --std=c99 -Wall -Wextra -O3 -D_DEFAULT_SOURCE
+           -Wno-implicit-fallthrough
+           (:include flags_freestanding))
+)
+
+(rule (copy %{lib:ocaml-freestanding:cflags} flags_freestanding))
+
+(rule (copy %{lib:nocrypto.default:nocrypto.ml} nocrypto.ml))
+(rule (copy %{lib:nocrypto.default:no_base64.ml} no_base64.ml))
+(rule (copy %{lib:nocrypto.default:no_ccm.ml} no_ccm.ml))
+(rule (copy %{lib:nocrypto.default:no_cipher_block.ml} no_cipher_block.ml))
+(rule (copy %{lib:nocrypto.default:no_cipher_stream.ml} no_cipher_stream.ml))
+(rule (copy %{lib:nocrypto.default:no_dh.ml} no_dh.ml))
+(rule (copy %{lib:nocrypto.default:no_dsa.ml} no_dsa.ml))
+(rule (copy %{lib:nocrypto.default:no_fortuna.ml} no_fortuna.ml))
+(rule (copy %{lib:nocrypto.default:no_hash.ml} no_hash.ml))
+(rule (copy %{lib:nocrypto.default:no_hmac_drgb.ml} no_hmac_drgb.ml))
+(rule (copy %{lib:nocrypto.default:no_native.ml} no_native.ml))
+(rule (copy %{lib:nocrypto.default:no_numeric.ml} no_numeric.ml))
+(rule (copy %{lib:nocrypto.default:no_rng.ml} no_rng.ml))
+(rule (copy %{lib:nocrypto.default:no_rsa.ml} no_rsa.ml))
+(rule (copy %{lib:nocrypto.default:no_uncommon.ml} no_uncommon.ml))
+
+(rule (copy %{lib:nocrypto:md5.c} md5.c))
+(rule (copy %{lib:nocrypto:sha1.c} sha1.c))
+(rule (copy %{lib:nocrypto:sha256.c} sha256.c))
+(rule (copy %{lib:nocrypto:sha512.c} sha512.c))
+(rule (copy %{lib:nocrypto:stubs.c} stubs.c))
+
+(rule (copy %{lib:nocrypto:aes_generic.c} aes_generic.c))
+(rule (copy %{lib:nocrypto:aes_aesni.c} aes_aesni.c))
+(rule (copy %{lib:nocrypto:ghash_generic.c} ghash_generic.c))
+(rule (copy %{lib:nocrypto:ghash_pclmul.c} ghash_pclmul.c))
+(rule (copy %{lib:nocrypto:des_generic.c} des_generic.c))
+(rule (copy %{lib:nocrypto:des_generic.h} des_generic.h))
+
+(rule (copy %{lib:nocrypto:bitfn.h} bitfn.h))
+(rule (copy %{lib:nocrypto:nocrypto.h} nocrypto.h))
+(rule (copy %{lib:nocrypto:misc.c} misc.c))
+
+(rule (copy %{lib:nocrypto:sha256.h} sha256.h))
+(rule (copy %{lib:nocrypto:sha512.h} sha512.h))
+(rule (copy %{lib:nocrypto:sha1.h} sha1.h))
+(rule (copy %{lib:nocrypto:md5.h} md5.h))
